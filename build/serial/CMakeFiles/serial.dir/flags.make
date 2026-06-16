@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ryota/manipulator_ws/src/serial/include
+CXX_INCLUDES = -I/home/ryota/manipulator_pj/manipulator_ws/src/serial/include
 
 CXX_FLAGS = 
 

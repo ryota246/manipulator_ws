@@ -14,9 +14,11 @@ find_package(serial REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-add_executable(gateway_node src/gateway_node.cpp)
-ament_target_dependencies(gateway_node rclcpp std_msgs)
-target_link_libraries(gateway_node serial)
+add_executable(gateway_node src/gateway.cpp)
+ament_target_dependencies(gateway_node rclcpp std_msgs serial)
+
+install(TARGETS gateway_node
+        DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

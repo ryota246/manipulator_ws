@@ -1,0 +1,8 @@
+source;share/gateway_pkg/hook/cmake_prefix_path.ps1
+source;share/gateway_pkg/hook/cmake_prefix_path.dsv
+source;share/gateway_pkg/hook/cmake_prefix_path.sh
+source;share/gateway_pkg/local_setup.bash
+source;share/gateway_pkg/local_setup.dsv
+source;share/gateway_pkg/local_setup.ps1
+source;share/gateway_pkg/local_setup.sh
+source;share/gateway_pkg/local_setup.zsh

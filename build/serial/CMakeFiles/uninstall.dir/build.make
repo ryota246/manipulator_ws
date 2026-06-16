@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ryota/manipulator_ws/src/serial
+CMAKE_SOURCE_DIR = /home/ryota/manipulator_pj/manipulator_ws/src/serial
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ryota/manipulator_ws/build/serial
+CMAKE_BINARY_DIR = /home/ryota/manipulator_pj/manipulator_ws/build/serial
 
 # Utility rule file for uninstall.
 
@@ -78,6 +78,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/ryota/manipulator_ws/build/serial && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ryota/manipulator_ws/src/serial /home/ryota/manipulator_ws/src/serial /home/ryota/manipulator_ws/build/serial /home/ryota/manipulator_ws/build/serial /home/ryota/manipulator_ws/build/serial/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ryota/manipulator_pj/manipulator_ws/build/serial && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ryota/manipulator_pj/manipulator_ws/src/serial /home/ryota/manipulator_pj/manipulator_ws/src/serial /home/ryota/manipulator_pj/manipulator_ws/build/serial /home/ryota/manipulator_pj/manipulator_ws/build/serial /home/ryota/manipulator_pj/manipulator_ws/build/serial/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uninstall.dir/depend
 
