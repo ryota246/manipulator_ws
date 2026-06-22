@@ -18,6 +18,8 @@ class gateway_node : public rclcpp::Node{
 			sub_angle_data = this->create_subscription<std_msgs::msg::Float32MultiArray>("angle_data",qos,std::bind(&gateway_node::angles_callback,this,std::placeholders::_1));
 			
 			sub_rpm_data = this->create_subscription<std_msgs::msg::Float32>("rpm_data",qos,std::bind(&gateway_node::rpm_callback,this,std::placeholders::_1));
+
+			sensor_pub = this->create_publisher<std_msgs::msg::Float32>("sonsor_data",qos);
 			
 
 
@@ -29,9 +31,11 @@ class gateway_node : public rclcpp::Node{
 		serial::Serial& my_serial;
 		rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr sub_angle_data;
 		rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr sub_rpm_data;
+		rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr sensor_pub;
 
 		float angles[6];
 		float rpm;
+		double sensor_data;
 
 		void rpm_callback(const std_msgs::msg::Float32::SharedPtr msg){
 			rpm = msg->data;
@@ -69,6 +73,14 @@ class gateway_node : public rclcpp::Node{
 			for (int i = 0 ; i < 7 ; i++){
 				my_serial.write(data[i]);
 			}
+
+			sensor_data = std::stoull(my_serial.read(sizeof(sensor_data)));
+			std_msgs::msg::Float32 sensor_msg; 
+			sensor_msg.data = sensor_data;
+			sensor_pub->publish(sensor_msg);
+
+
+
 		}
 
 

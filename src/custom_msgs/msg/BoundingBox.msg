@@ -1,3 +1,4 @@
 int16 num_of_box
-float32[] boxes_xyxy
+int32[] xyxy
 string[] labels
+float32[] confidence

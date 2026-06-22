@@ -18,7 +18,7 @@ class camera_node(Node):
         self.bridge = CvBridge()
         self.timer = self.create_timer(0.0005,self.timer_callback)
 
-        self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture(2)
 
         self.get_logger().info("camera_node is up")
 
@@ -31,7 +31,7 @@ class camera_node(Node):
 
         frame = cv2.resize(frame,(640,480))
 
-        msg = self.bridge.cv2_to_imgmsg(frame)
+        msg = self.bridge.cv2_to_imgmsg(frame,encoding="bgr8")
 
         self.pub.publish(msg)
         
