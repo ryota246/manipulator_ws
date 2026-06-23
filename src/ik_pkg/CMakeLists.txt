@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(gateway_pkg)
+project(ik_pkg)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -9,17 +9,15 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(serial REQUIRED)
+find_package(custom_msgs REQUIRED)
 
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+add_executable(ik_node src/ik.cpp)
+ament_target_dependencies(ik_node rclcpp std_msgs custom_msgs)
 
-add_executable(gateway_node src/gateway.cpp)
-ament_target_dependencies(gateway_node rclcpp std_msgs serial)
-
-
-install(TARGETS gateway_node
+install(TARGETS ik_node
         DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
