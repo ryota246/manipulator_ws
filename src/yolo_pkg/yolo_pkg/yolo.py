@@ -46,6 +46,10 @@ class yolo_node(Node):
         msg = BoundingBox()
         
         results = self.model(self.image)
+        if len(results) == 0:
+            msg.has_box = False
+            self.box_pub.publish(msg)
+            return
         result = results[0]
 
         box_points = []
@@ -156,6 +160,7 @@ class yolo_node(Node):
         msg.xyxy = box_points
         msg.confidence = confidences
         msg.labels = labels
+        msg.has_box = True
 
         self.box_pub.publish(msg)
 
