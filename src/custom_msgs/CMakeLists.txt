@@ -11,7 +11,7 @@ find_package(rosidl_default_generators REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
-rosidl_generate_interfaces(${PROJECT_NAME} "msg/BoundingBox.msg" "msg/Pos.msg" "action/Approach.action")
+rosidl_generate_interfaces(${PROJECT_NAME} "msg/BoundingBox.msg" "msg/Pos.msg" "action/Approach.action" "action/Conveyor.action" "action/Move.action")
 
 
 if(BUILD_TESTING)

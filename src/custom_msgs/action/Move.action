@@ -1,0 +1,13 @@
+float32 s_x
+float32 s_y
+float32 s_z
+float32 s_yaw
+float32 speed
+float32 g_x
+float32 g_y
+float32 g_z
+float32 g_yaw
+string grip
+---
+bool success
+---

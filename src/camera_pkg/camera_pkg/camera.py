@@ -16,7 +16,7 @@ class camera_node(Node):
 
         self.pub = self.create_publisher(Image,'/camera_image',10)
         self.bridge = CvBridge()
-        self.timer = self.create_timer(0.0005,self.timer_callback)
+        self.timer = self.create_timer(0.01,self.timer_callback)
 
         self.cap = cv2.VideoCapture(2)
 
@@ -30,6 +30,38 @@ class camera_node(Node):
             self.get_logger().info("Can't receive frame. Exiting...")
 
         frame = cv2.resize(frame,(640,480))
+        #frame = cv2.flip(frame, -1)
+
+
+
+
+
+
+
+        gamma = 1
+
+        table = np.array([
+            ((i / 255.0) ** gamma) * 255
+            for i in np.arange(256)
+        ]).astype("uint8")
+
+        frame = cv2.LUT(frame, table)
+
+
+
+        # lab = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
+        # l, a, b = cv2.split(lab)
+
+        # clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+        # l = clahe.apply(l)
+
+        # lab = cv2.merge((l,a,b))
+        # frame = cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
+
+
+
+
+
 
         msg = self.bridge.cv2_to_imgmsg(frame,encoding="bgr8")
 

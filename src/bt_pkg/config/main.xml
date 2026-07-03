@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format='4'>
+    <BehaviorTree ID="MainTree">
+
+        <Sequence>
+            <move topic_name="pose_data" x="190" y="50" z="70" yaw="0" grip="open" mode="1"/>
+            <Sleep msec="1000"/>
+            <SetBlackboard output_key="speed" value="100"/>
+            <RetryUntilSuccessful num_attempts="-1">
+                <Sequence>
+                    <smooth_move action_name="move" s_x="190" s_y="50" s_z="70" s_yaw="0" g_x="190" g_y="50" g_z="-95" g_yaw="0" speed="{speed}" grip="open"/>
+                    <smooth_move action_name="move" s_x="190" s_y="50" s_z="-95" s_yaw="0" g_x="190" g_y="50" g_z="70" g_yaw="0" speed="{speed}" grip="open"/>
+                    <smooth_move action_name="move" s_x="190" s_y="50" s_z="70" s_yaw="0" g_x="-20" g_y="-130" g_z="-80" g_yaw="0" speed="{speed}" grip="open"/>
+                    <smooth_move action_name="move" s_x="-20" s_y="-130" s_z="-80" s_yaw="0" g_x="-20" g_y="-260" g_z="-80" g_yaw="0" speed="{speed}" grip="open"/>
+                    <smooth_move action_name="move" s_x="-20" s_y="-260" s_z="-80" s_yaw="0" g_x="70" g_y="-260" g_z="-80" g_yaw="0" speed="{speed}" grip="open"/>
+                    <smooth_move action_name="move" s_x="70" s_y="-260" s_z="-80" s_yaw="0" g_x="60" g_y="-100" g_z="-80" g_yaw="0" speed="{speed}" grip="open"/>
+                    <smooth_move action_name="move" s_x="60" s_y="-100" s_z="-80" s_yaw="0" g_x="190" g_y="50" g_z="70" g_yaw="0" speed="{speed}" grip="open"/>
+                    <AlwaysFailure/>
+                </Sequence>
+            </RetryUntilSuccessful>
+            
+           
+            <!-- <conveyor action_name="conveyor" /> -->
+            <finish/>
+        </Sequence>
+        
+    </BehaviorTree>
+</root>

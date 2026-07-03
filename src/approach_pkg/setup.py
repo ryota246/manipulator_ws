@@ -24,6 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'approach_node = approach_pkg.approach:main',
         ],
     },
 )

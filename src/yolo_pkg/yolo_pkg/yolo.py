@@ -28,7 +28,7 @@ class yolo_node(Node):
 
         self.box_pub = self.create_publisher(BoundingBox,"/bounding_box",10)
 
-        self.timer = self.create_timer(0.1,self.timer_callback)
+        self.timer = self.create_timer(0.01,self.timer_callback)
 
         self.image =None
         self.bridge = CvBridge()
@@ -45,12 +45,52 @@ class yolo_node(Node):
 
         msg = BoundingBox()
         
-        results = self.model(self.image)
-        if len(results) == 0:
+        results = self.model(self.image, conf=0.8, imgsz=640)
+        result = results[0]
+
+        # if len(result.boxes) == 0:
+        #     msg.has_box = False
+        #     self.box_pub.publish(msg)
+        #     return
+
+
+        gray_image = cv2.cvtColor(self.image,cv2.COLOR_BGR2GRAY)
+
+        _ , binary = cv2.threshold(gray_image,190,255,cv2.THRESH_BINARY)
+
+        if self.debug_mode == 1:
+            debug_image = self.image.copy()
+
+        if self.debug_mode == 2:
+            debug_binary = cv2.cvtColor(binary, cv2.COLOR_GRAY2BGR)
+
+        if len(result.boxes) == 0:
             msg.has_box = False
             self.box_pub.publish(msg)
+
+            if self.debug_mode == 1:
+                cv2.putText(debug_image,
+                            "No Detection",
+                            (20, 40),
+                            cv2.FONT_HERSHEY_SIMPLEX,
+                            1.0,
+                            (0, 0, 255),
+                            2)
+                cv2.imshow("yolo_node", debug_image)
+                cv2.waitKey(1)
+
+            elif self.debug_mode == 2:
+                cv2.putText(debug_binary,
+                            "No Detection",
+                            (20, 40),
+                            cv2.FONT_HERSHEY_SIMPLEX,
+                            1.0,
+                            (0, 0, 255),
+                            2)
+                cv2.imshow("yolo_node", debug_binary)
+                cv2.waitKey(1)
+
             return
-        result = results[0]
 
         box_points = []
         confidences = []
@@ -58,14 +98,11 @@ class yolo_node(Node):
         angles = []
 
         
-        gray_image = cv2.cvtColor(self.image,cv2.COLOR_BGR2GRAY)
 
-        _ , binary = cv2.threshold(gray_image,160,255,cv2.THRESH_BINARY)
-
-        if self.debug_mode == 1:
-            debug_image = self.image.copy()
-        if self.debug_mode == 2:
-            debug_binary = binary.copy()
+        # if self.debug_mode == 1:
+        #     debug_image = self.image.copy()
+        # if self.debug_mode == 2:
+        #     debug_binary = binary.copy()
 
 
         for i , box in enumerate(result.boxes):
@@ -93,13 +130,15 @@ class yolo_node(Node):
                 largest_contour = max(contours,key=cv2.contourArea)
                 rect = cv2.minAreaRect(largest_contour)
                 angle = rect[2]
-                if angle < -45:
-                    angle += 90
-                angles.append(angle)
+                if angle > 45:
+                    angle -= 90
+                angle = -angle
+                
 
             else:
-                angles.append(None)
-                angle = 0
+                angle = 0.0
+            angles.append(angle)
+                
 
 
 
@@ -160,6 +199,7 @@ class yolo_node(Node):
         msg.xyxy = box_points
         msg.confidence = confidences
         msg.labels = labels
+        msg.angles = angles
         msg.has_box = True
 
         self.box_pub.publish(msg)

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format='4'>
+    <BehaviorTree ID="MainTree">
+        <Sequence>
+            <Sleep msec="1000"/>
+            <SetBlackboard output_key="speed" value="200"/>
+            <move topic_name="pose_data" x="210" y="40" z="40" yaw="0" grip="open" mode="1"/>
+            <Sleep msec="1000"/>
+            
+            
+            <RetryUntilSuccessful num_attempts="-1">
+                <Sequence>
+                    <approach action_name="approach" goal_x="{goal_x}" goal_y="{goal_y}" goal_z="{goal_z}" goal_yaw="{goal_yaw}" label="{label}" />
+                    <Precondition else="SUCCESS"
+                            if="label != 'none'">
+                        <Sequence>
+                            <smooth_move action_name="move" s_x="{goal_x}" s_y="{goal_y}" s_z="70" s_yaw="{goal_yaw}" g_x="{goal_x}" g_y="{goal_y}" g_z="-105" g_yaw="{goal_yaw}" speed="100" grip="open"/>
+                            
+                            
+                            <smooth_move action_name="move" s_x="{goal_x}" s_y="{goal_y}" s_z="-105" s_yaw="{goal_yaw}" g_x="{goal_x}" g_y="{goal_y}" g_z="-105" g_yaw="{goal_yaw}" speed="{speed}" grip="close"/>
+                            <Sleep msec="300"/>
+                            <smooth_move action_name="move" s_x="{goal_x}" s_y="{goal_y}" s_z="-105" s_yaw="{goal_yaw}" g_x="{goal_x}" g_y="{goal_y}" g_z="0" g_yaw="{goal_yaw}" speed="{speed}" grip="close"/>
+
+                            <Precondition else="SUCCESS"
+                            if="label == 'strawberry'">
+                                <Sequence>
+                                    <smooth_move action_name="move" s_x="{goal_x}" s_y="{goal_y}" s_z="0" s_yaw="{goal_yaw}" g_x="-20" g_y="-130" g_z="-10" g_yaw="0" speed="{speed}" grip="close"/>
+                                    <smooth_move action_name="move" s_x="-20" s_y="-130" s_z="-10" s_yaw="0" g_x="-20" g_y="-130" g_z="-80" g_yaw="0" speed="{speed}" grip="close"/>
+                                    <smooth_move action_name="move" s_x="-20" s_y="-130" s_z="-80" s_yaw="0" g_x="-20" g_y="-130" g_z="-80" g_yaw="0" speed="{speed}" grip="open"/>
+                                    <smooth_move action_name="move" s_x="-20" s_y="-130" s_z="-80" s_yaw="0" g_x="-20" g_y="-130" g_z="-10" g_yaw="0" speed="{speed}" grip="open"/>
+                                    <smooth_move action_name="move" s_x="-20" s_y="-130" s_z="-10" s_yaw="0" g_x="210" g_y="40" g_z="40" g_yaw="-17.6" speed="{speed}" grip="open"/>
+
+                                </Sequence>
+                            </Precondition>
+                            <Precondition else="SUCCESS"
+                                    if="label == 'cola'">
+                                <Sequence>
+                                    <smooth_move action_name="move" s_x="{goal_x}" s_y="{goal_y}" s_z="0" s_yaw="{goal_yaw}" g_x="-20" g_y="-260" g_z="-10" g_yaw="0" speed="{speed}" grip="close"/>
+                                    
+                                    <smooth_move action_name="move" s_x="-20" s_y="-260" s_z="-10" s_yaw="0" g_x="-20" g_y="-260" g_z="-80" g_yaw="0" speed="{speed}" grip="close"/>
+                                    <smooth_move action_name="move" s_x="-20" s_y="-260" s_z="-80" s_yaw="0" g_x="-20" g_y="-260" g_z="-80" g_yaw="0" speed="{speed}" grip="open"/>
+                                    <smooth_move action_name="move" s_x="-20" s_y="-260" s_z="-80" s_yaw="0" g_x="-20" g_y="-260" g_z="-10" g_yaw="0" speed="{speed}" grip="open"/>
+                        
+                                    <smooth_move action_name="move" s_x="-20" s_y="-260" s_z="-10" s_yaw="0" g_x="210" g_y="40" g_z="40" g_yaw="-17.6" speed="{speed}" grip="open"/>
+                                    
+                                </Sequence>
+                            </Precondition>
+
+                            <Precondition else="SUCCESS"
+                                    if="label == 'orange'">
+                                <Sequence>
+                                    <smooth_move action_name="move" s_x="{goal_x}" s_y="{goal_y}" s_z="0" s_yaw="{goal_yaw}" g_x="70" g_y="-240" g_z="-10" g_yaw="0" speed="{speed}" grip="close"/>
+                        
+                                    <smooth_move action_name="move" s_x="70" s_y="-240" s_z="-10" s_yaw="0" g_x="70" g_y="-240" g_z="-80" g_yaw="0" speed="{speed}" grip="close"/>
+                                    
+                                    <smooth_move action_name="move" s_x="70" s_y="-240" s_z="-80" s_yaw="0" g_x="70" g_y="-240" g_z="-80" g_yaw="0" speed="{speed}" grip="open"/>
+                                    <smooth_move action_name="move" s_x="70" s_y="-240" s_z="-80" s_yaw="0" g_x="70" g_y="-240" g_z="-10" g_yaw="0" speed="{speed}" grip="open"/>
+                                    <smooth_move action_name="move" s_x="70" s_y="-240" s_z="-10" s_yaw="0" g_x="210" g_y="40" g_z="40" g_yaw="-17.6" speed="{speed}" grip="open"/>
+                                    
+                                </Sequence>
+                            </Precondition>
+
+                            <Precondition else="SUCCESS"
+                                    if="label == 'grape'">
+                                <Sequence>
+                                    <smooth_move action_name="move" s_x="{goal_x}" s_y="{goal_y}" s_z="0" s_yaw="{goal_yaw}" g_x="40" g_y="-120" g_z="-10" g_yaw="0" speed="{speed}" grip="close"/>
+                                    
+                                    <smooth_move action_name="move" s_x="40" s_y="-120" s_z="-10" s_yaw="0" g_x="40" g_y="-120" g_z="-80" g_yaw="0" speed="{speed}" grip="close"/>
+                                    <smooth_move action_name="move" s_x="40" s_y="-120" s_z="-80" s_yaw="0" g_x="40" g_y="-120" g_z="-80" g_yaw="0" speed="{speed}" grip="open"/>
+                                    <smooth_move action_name="move" s_x="40" s_y="-120" s_z="-80" s_yaw="0" g_x="40" g_y="-120" g_z="-10" g_yaw="0" speed="{speed}" grip="open"/>
+                                    <smooth_move action_name="move" s_x="40" s_y="-120" s_z="-10" s_yaw="0" g_x="210" g_y="40" g_z="40" g_yaw="-17.6" speed="{speed}" grip="open"/>
+                                    
+                                </Sequence>
+                            </Precondition>
+                                    
+                                </Sequence>
+                            </Precondition>
+
+                    <Precondition else="SUCCESS"
+                            if="label == 'none'">
+                        <conveyor action_name="conveyor"/>
+                    </Precondition>
+                    <Sleep msec="1000"/>
+                    <AlwaysFailure/>
+                </Sequence>
+            </RetryUntilSuccessful>
+
+            <finish/>
+        </Sequence>
+        
+    </BehaviorTree>
+</root>

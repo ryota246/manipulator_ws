@@ -1,0 +1,9 @@
+CompileFlags:
+  Add:
+    - -xc++
+    - -std=c++17
+    - -I/home/ryota/manipulator_pj/manipulator_ws/src/BehaviorTree.CPP/include
+    - -I/home/ryota/manipulator_pj/manipulator_ws/src/BehaviorTree.CPP/3rdparty
+    - -I/home/ryota/manipulator_pj/manipulator_ws/src/BehaviorTree.CPP/3rdparty/minitrace
+    - -I/home/ryota/manipulator_pj/manipulator_ws/src/BehaviorTree.CPP/3rdparty/tinyxml2
+    - -I/home/ryota/manipulator_pj/manipulator_ws/src/BehaviorTree.CPP/3rdparty/minicoro

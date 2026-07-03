@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format='4'>
+    <BehaviorTree ID="MainTree">
+        <Sequence>
+            <move topic_name="pose_data" x="190" y="50" z="70" yaw="0" grip="open" mode="1"/>
+            <Sleep msec="1000"/>
+            <approach action_name="approach" goal_x="{goal_x}" goal_y="{goal_y}" goal_z="{goal_z}" goal_yaw="{goal_yaw}" label="{label}" />
+            <Precondition else="SUCCESS"
+                      if="label != 'none'">
+                <Sequence>
+                    <move topic_name="pose_data" x="{goal_x}" y="{goal_y}" z="00" yaw="{goal_yaw}" grip="open" mode="0"/>
+                    
+                                
+                    <Sleep msec="600"/>
+                    <move topic_name="pose_data" x="{goal_x}" y="{goal_y}" z="-60" yaw="{goal_yaw}" grip="open" mode="0"/>
+                    <Sleep msec="600"/>
+                    <move topic_name="pose_data" x="{goal_x}" y="{goal_y}" z="-95" yaw="{goal_yaw}" grip="open" mode="0"/>
+                    <Sleep msec="600"/>
+                    <move topic_name="pose_data" x="{goal_x}" y="{goal_y}" z="-95" yaw="{goal_yaw}" grip="close" mode="0"/>
+                    <Sleep msec="600"/>
+                    <move topic_name="pose_data" x="{goal_x}" y="{goal_y}" z="0" yaw="{goal_yaw}" grip="close" mode="0"/>
+
+                    <Precondition else="SUCCESS"
+                      if="label == 'strawberry'">
+                        <Sequence>
+                            <move topic_name="pose_data" x="-20" y="-130" z="-10" yaw="0" grip="close" mode="0"/>
+                             <Sleep msec="500"/>
+                            <move topic_name="pose_data" x="-20" y="-130" z="-80" yaw="0" grip="close" mode="0"/>
+                            <Sleep msec="500"/>
+                            <move topic_name="pose_data" x="-20" y="-130" z="-80" yaw="0" grip="open" mode="0"/>
+                            <Sleep msec="500"/>
+                        </Sequence>
+                    </Precondition>
+                    <Precondition else="SUCCESS"
+                            if="label == 'cola'">
+                        <Sequence>
+                            <move topic_name="pose_data" x="-20" y="-260" z="-10" yaw="0" grip="close" mode="0"/>
+                             <Sleep msec="500"/>
+                            <move topic_name="pose_data" x="-20" y="-260" z="-80" yaw="0" grip="close" mode="0"/>
+                            <Sleep msec="500"/>
+                            <move topic_name="pose_data" x="-20" y="-260" z="-80" yaw="0" grip="open" mode="0"/>
+                            <Sleep msec="500"/>
+                        </Sequence>
+                    </Precondition>
+
+                    <Precondition else="SUCCESS"
+                            if="label == 'orange'">
+                        <Sequence>
+                           <move topic_name="pose_data" x="70" y="-260" z="-10" yaw="0" grip="close" mode="0"/>
+                             <Sleep msec="500"/>
+                            <move topic_name="pose_data" x="70" y="-260" z="-80" yaw="0" grip="close" mode="0"/>
+                            <Sleep msec="500"/>
+                            <move topic_name="pose_data" x="70" y="-260" z="-80" yaw="0" grip="open" mode="0"/>
+                            <Sleep msec="500"/>
+                        </Sequence>
+                    </Precondition>
+
+                    <Precondition else="SUCCESS"
+                            if="label == 'grape'">
+                        <Sequence>
+                            <move topic_name="pose_data" x="60" y="-100" z="-10" yaw="0" grip="close" mode="0"/>
+                             <Sleep msec="500"/>
+                            <move topic_name="pose_data" x="60" y="-100" z="-80" yaw="0" grip="close" mode="0"/>
+                            <Sleep msec="500"/>
+                            <move topic_name="pose_data" x="60" y="-100" z="-80" yaw="0" grip="open" mode="0"/>
+                            <Sleep msec="500"/>
+                        </Sequence>
+                    </Precondition>
+                            
+                        </Sequence>
+                    </Precondition>
+
+            <Precondition else="SUCCESS"
+                      if="label == 'none'">
+                <conveyor action_name="conveyor" />
+            </Precondition>
+            
+            <AlwaysFailure/>
+                
+
+            <finish/>
+        </Sequence>
+        
+    </BehaviorTree>
+</root>
